@@ -1,74 +1,81 @@
 import java.util.*;
 import utils.DbConnection;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.sql.SQLException;
-import common.db.DatabaseManager;
-
+import java.sql.*;
+import Common.db.*;
 
 public class Main {
-
     private static Scanner scanner = new Scanner(System.in);
-
-
     public static void main(String[] args) {
-
         while (true) {
-            System.out.println("1. Signup");
-            System.out.println("2. Exit");
+            System.out.println("\nWelcome to the Student Grading System");
+            System.out.println("1. Login");
+            System.out.println("2. Sign Up");
+            System.out.println("3. Exit");
             System.out.print("Enter option: ");
             int option = scanner.nextInt();
+            scanner.nextLine();
+
             switch (option) {
                 case 1:
-                    signup();
+                    loginScreen();
                     break;
                 case 2:
+                    signUpScreen();
+                    break;
+                case 3:
+                    System.out.println("Exiting system.");
                     System.exit(0);
                     break;
                 default:
                     System.out.println("Invalid option. Please try again.");
             }
         }
-
     }
 
-
-    private static void signup() {
-        System.out.print("Enter username: ");
+    private static void loginScreen() {
+        System.out.print("Username: ");
         String username = scanner.nextLine();
-        System.out.println("Enter password: ");
+        System.out.print("Password: ");
         String password = scanner.nextLine();
-        System.out.println("Enter role (student/instructor/supervisor): ");
-        String role = scanner.nextLine();
-        System.out.println("Enter person ID: ");
-        int personId = scanner.nextInt();
-        scanner.nextLine();  // Consume newline
 
-        if (DatabaseManager.addUser(username, password, role, personId)) {
-            System.out.println("Signup successful!");
-        } else {
-            System.out.println("Signup failed. Please try again.");
-        }
-    }
+        String role = DatabaseManager.authenticateUser(username, password);
+        SupervisorMenu supermenu = new SupervisorMenu();
+        InstructorMenu insmenu = new InstructorMenu();
+        StudentMenu stdmenu = new StudentMenu();
 
-    private static void login() {
-        boolean loggedIn = false;
-        while (!loggedIn) {
-            System.out.print("Username: ");
-            String username = scanner.next();
-            System.out.print("Password: ");
-            String password = scanner.next();
-
-            if (DatabaseManager.authenticateUser(username, password)) {
-                System.out.println("Login successful!");
-                loggedIn = true;
-                // Additional functionality post-login can be implemented here
-            } else {
-                System.out.println("Login failed. Please try again.");
+        if (role != null) {
+            switch (role) {
+                case "supervisor":
+                    supermenu.displayMenu();
+                    break;
+                case "instructor":
+                    insmenu.displayMenu();
+                    break;
+                case "student":
+                    stdmenu.displayMenu();
+                    break;
             }
+        } else {
+            System.out.println("Login failed. Please try again.");
         }
     }
+
+    private static void signUpScreen() {
+        System.out.println("\nSign Up");
+        System.out.print("Username: ");
+        String username = scanner.nextLine();
+        System.out.print("Password: ");
+        String password = scanner.nextLine();
+        System.out.print("Role (student/instructor/supervisor): ");
+        String role = scanner.nextLine();
+
+        if (DatabaseManager.addUser(username, password, role)) {
+            System.out.println("Sign up successful! You can now login.");
+        } else {
+            System.out.println("Sign up failed. Please try again.");
+        }
+    }
+
 
 
 }
