@@ -1,5 +1,9 @@
+package Menus;
+
+import db.DatabaseManager;
+
 import java.util.*;
-import Common.db.*;
+
 
 public class SupervisorMenu {
     private Scanner scanner = new Scanner(System.in);
@@ -69,7 +73,6 @@ public class SupervisorMenu {
         int instructorId = scanner.nextInt();
         scanner.nextLine();  // Consume newline
 
-        if (instructorId == 0) { instructorId = null; }
         if (DatabaseManager.addCourse(courseName, instructorId)) {
             System.out.println("Course added successfully!");
         } else {

@@ -1,5 +1,8 @@
+package Menus;
+
+import db.DatabaseManager;
+
 import java.util.*;
-import Common.db.*;
 
 public class InstructorMenu {
     private Scanner scanner = new Scanner(System.in);
@@ -17,7 +20,7 @@ public class InstructorMenu {
 
             switch (choice) {
                 case 1:
-                    viewMyCourses();
+                    //viewMyCourses();
                     break;
                 case 2:
                     enrollStudent();
@@ -33,18 +36,19 @@ public class InstructorMenu {
         }
     }
 
-    private void viewMyCourses() {
-        int instructorId = getCurrentUserId(); // This method needs to retrieve the current user's ID from the session or context
-        List<Course> courses = DatabaseManager.getCoursesForInstructor(instructorId);
-        if (courses.isEmpty()) {
-            System.out.println("No courses found.");
-        } else {
-            System.out.println("Courses you are teaching:");
-            for (Course course : courses) {
-                System.out.println("Course ID: " + course.getCourseId() + ", Course Name: " + course.getCourseName());
-            }
-        }
-    }
+//    private void viewMyCourses() {
+//        int instructorId;
+//        List<String> courses = DatabaseManager.getCoursesForInstructor(instructorId);
+//        if (courses.isEmpty()) {
+//            System.out.println("No courses found.");
+//        } else {
+//            System.out.println("Courses you are teaching:");
+//            for (String course : courses) {
+//                System.out.println(course);
+//            }
+//        }
+//    }
+
 
 
     private void enrollStudent() {

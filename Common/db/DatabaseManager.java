@@ -1,4 +1,4 @@
-package Common.db;
+package db;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -7,7 +7,7 @@ import utils.DbConnection;
 
 public class DatabaseManager {
     public static String authenticateUser(String username, String password) {
-        String query = "SELECT role FROM users WHERE username = ? AND password = ?";
+        String query = "SELECT role FROM Users WHERE username = ? AND password = ?";
         try (Connection conn = DbConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
             ps.setString(1, username);
@@ -165,6 +165,8 @@ public class DatabaseManager {
         }
         return grades;
     }
+
+
 
 
 }

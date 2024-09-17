@@ -1,7 +1,8 @@
 import java.util.*;
 import utils.DbConnection;
 import java.sql.*;
-import Common.db.*;
+import db.*;
+import Menus.*;
 
 public class Main {
     private static Scanner scanner = new Scanner(System.in);
@@ -37,6 +38,8 @@ public class Main {
         String username = scanner.nextLine();
         System.out.print("Password: ");
         String password = scanner.nextLine();
+
+
 
         String role = DatabaseManager.authenticateUser(username, password);
         SupervisorMenu supermenu = new SupervisorMenu();
