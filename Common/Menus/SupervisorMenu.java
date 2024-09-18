@@ -8,7 +8,7 @@ import java.util.*;
 public class SupervisorMenu {
     private Scanner scanner = new Scanner(System.in);
 
-    public void displayMenu() {
+    public void displayMenu(int userid) {
         while (true) {
             System.out.println("\nSupervisor Menu");
             System.out.println("1. Add User");

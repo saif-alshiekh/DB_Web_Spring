@@ -7,7 +7,7 @@ import java.util.*;
 public class InstructorMenu {
     private Scanner scanner = new Scanner(System.in);
 
-    public void displayMenu() {
+    public void displayMenu(int userid) {
         while (true) {
             System.out.println("\nInstructor Menu");
             System.out.println("1. View My Courses");
@@ -20,7 +20,7 @@ public class InstructorMenu {
 
             switch (choice) {
                 case 1:
-                    //viewMyCourses();
+                    viewMyCourses(userid);
                     break;
                 case 2:
                     enrollStudent();
@@ -36,18 +36,17 @@ public class InstructorMenu {
         }
     }
 
-//    private void viewMyCourses() {
-//        int instructorId;
-//        List<String> courses = DatabaseManager.getCoursesForInstructor(instructorId);
-//        if (courses.isEmpty()) {
-//            System.out.println("No courses found.");
-//        } else {
-//            System.out.println("Courses you are teaching:");
-//            for (String course : courses) {
-//                System.out.println(course);
-//            }
-//        }
-//    }
+    private void viewMyCourses(int userid) {
+        List<String> courses = DatabaseManager.getCoursesForInstructor(userid);
+        if (courses.isEmpty()) {
+            System.out.println("No courses found.");
+        } else {
+            System.out.println("Courses you are teaching:");
+            for (String course : courses) {
+                System.out.println(course);
+            }
+        }
+    }
 
 
 

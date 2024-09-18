@@ -22,6 +22,22 @@ public class DatabaseManager {
         return null;  // Return null if authentication fails
     }
 
+    public static int getUserId(String username, String password) {
+        String query = "SELECT user_id FROM Users WHERE username = ? AND password = ?";
+        try (Connection conn = DbConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setString(1, username);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("user_id");  // Return the role if credentials are correct
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;  // Return null if authentication fails
+    }
+
 
     public static boolean addUser(String username, String password, String role) {
         String sql = "INSERT INTO Users (username, password, role) VALUES (?, ?, ?)";

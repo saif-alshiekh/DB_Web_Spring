@@ -40,8 +40,8 @@ public class Main {
         String password = scanner.nextLine();
 
 
-
         String role = DatabaseManager.authenticateUser(username, password);
+        int userid = DatabaseManager.getUserId(username, password);
         SupervisorMenu supermenu = new SupervisorMenu();
         InstructorMenu insmenu = new InstructorMenu();
         StudentMenu stdmenu = new StudentMenu();
@@ -49,13 +49,13 @@ public class Main {
         if (role != null) {
             switch (role) {
                 case "supervisor":
-                    supermenu.displayMenu();
+                    supermenu.displayMenu(userid);
                     break;
                 case "instructor":
-                    insmenu.displayMenu();
+                    insmenu.displayMenu(userid);
                     break;
                 case "student":
-                    stdmenu.displayMenu();
+                    stdmenu.displayMenu(userid);
                     break;
             }
         } else {
