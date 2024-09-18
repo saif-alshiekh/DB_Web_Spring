@@ -181,8 +181,4 @@ public class DatabaseManager {
         }
         return grades;
     }
-
-
-
-
 }
